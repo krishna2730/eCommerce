@@ -12,7 +12,7 @@ const createUser = async(userData) => {
         if(result){
             throw createHttpError(409, " This email is already registered");
         }
-
+        
         //Hash Password
         const hashedPassword = await bcrypt.hash(userData.password, 10); // 10 is the number of salt rounds
         const user = await userRepository.create({

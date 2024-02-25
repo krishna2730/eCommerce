@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-useAPI(app, "/api/v1/triveous");
+useAPI(app, " ");
 app.use(
     "/api-docs",
     swaggerUi.serveWithOptions({ redirect: false }),

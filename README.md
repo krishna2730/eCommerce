@@ -1,8 +1,8 @@
-# Triveous API
+# Triveous eCommerce API
 
 ## Overview
 
-Triveous API is a Node.js application that provides endpoints for managing carts, categories, orders, products, and users. This README file provides information on setting up the project and configuring the database.
+This is a Node.js application that provides endpoints for managing carts, categories, orders, products, and users. This README file provides information on setting up the project and configuring the database.
 
 ## Table of Contents
 
@@ -12,16 +12,16 @@ Triveous API is a Node.js application that provides endpoints for managing carts
 4. [Tags](#tags)
 5. [Contact](#contact)
 
-## Setup
+## Setup <a name="setup"></a>
 
-### Prerequisites
+#### Prerequisites
 
 Before you begin, ensure you have the following installed:
 
 - Node.js
 - PostgreSQL
 
-### Installation
+#### Installation
 
 1. Clone the repository:
    ```bash
@@ -30,7 +30,7 @@ Before you begin, ensure you have the following installed:
     ```bash
     cd triveous-api
     npm install
-### Database Configuration
+## Database Configuration <a name="database-configuration"></a>
 1. Create a PostgreSQL database for the project.
 2. Create the .env file and add the below attribute to this file (You can set your own attributes)
     ```bash
@@ -44,38 +44,43 @@ Before you begin, ensure you have the following installed:
     ```bash
     npm run knex migrate:latest
     npm run knex migrate:up
-### API Endpoints
-##### Cart
-`POST` /cart - **Add a product to the cart**
-`PUT` /cart - **Remove a product from the cart**
-`DELETE` /cart - **Empty the cart**
-`GET` /cart - **Get cart items for the authenticated user**
-#####  Category
-`POST` /category - **Add a parent category**
-`GET` /category - **Get all categories**
-`POST` /category/sub-category - **Add a sub-category**
-##### Orders
-`POST` /orders/{cart_id} - **Place a new order using the specified cart ID**
-`GET` /orders - **Get all orders for the authenticated user**
-`GET` /orders/{order_id} - **Get details of a specific order by order ID**
-##### Products
-`GET` /products - **Get all products**
-`POST` /products - **Add a new product**
-`GET` /products/{id} **Get a product by ID** 
-`PUT` /products/{id} - **Edit a product by ID** 
-`GET` /products/category/{name} - **Get products by category name**
-##### Users
-`POST` /users - **Create a new user**
-`PUT` /users - **Edit user information**
-`POST` /users/login - **User login**
+## API Endpoints <a name="api-endpoints"></a>
+> Swagger Url: [http://localhost:3000/api-docs/](http://localhost:3000/api-docs) \
+> Base API Url: [http://localhost:3000/api/v1/triveous/](http://localhost:3000/api/v1/triveous)
 
-### Tags
+##### Users
+`POST` /users - **Create a new user** \
+`PUT` /users - **Edit user information** \
+`POST` /users/login - **User login**
+#####  Category
+`POST` /category - **Add a parent category** \
+`GET` /category - **Get all categories** \
+`POST` /category/sub-category - **Add a sub-category** 
+##### Products
+`GET` /products - **Get all products** \
+`POST` /products - **Add a new product** \
+`GET` /products/{id} **Get a product by ID** \
+`PUT` /products/{id} - **Edit a product by ID** \
+`GET` /products/category/{name} - **Get products by category name** 
+##### Cart
+`POST` /cart - **Add a product to the cart** \
+`PUT` /cart - **Remove a product from the cart** \
+`DELETE` /cart - **Empty the cart** \
+`GET` /cart - **Get cart items for the authenticated user** 
+##### Orders
+`POST` /orders/{cart_id} - **Place a new order using the specified cart ID** \
+`GET` /orders - **Get all orders for the authenticated user** \
+`GET` /orders/{order_id} - **Get details of a specific order by order ID*
+
+
+
+## Tags <a name="tags"></a>
 - Cart: Cart management
 - Category: Category management
 - Orders: Order management
 - Products: Product management
  
-### Contact
+## Contact <a name="contact"></a>
 For any inquiries, contact:
 Name: Krishna Viramgama
 Email: krishnaviramgama2002@gmail.com
