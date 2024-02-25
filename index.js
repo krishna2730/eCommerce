@@ -24,11 +24,6 @@ app.use(
     swaggerUi.setup(swaggerDocument)
   );
 
-// app.use(function(error, req, res, next) {
-    //   console.log('Error: ',error);
-    //     next(error);
-//   });
-
 app.use(errorHandler);
 
 app.listen(process.env.PORT,() => {

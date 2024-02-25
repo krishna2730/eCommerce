@@ -43,9 +43,7 @@ const emptyCart = async(userId) => {
 const getCartItems = async(userId) => {
     const transaction = db.transaction();
     try {
-        console.log('hello');
         const result = await cartRepository.getCartItems(userId)
-        console.log('bye');
         (await transaction).commit();
         return result;
     } catch (error) {

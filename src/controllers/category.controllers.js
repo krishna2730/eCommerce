@@ -105,7 +105,6 @@ const addSubCategory = async(req,res,next) => {
 const getAllCategories = async(req,res,next) => {
     try {
         const result = await categoryService.getAllCategories();
-        // console.log("Data:", result);
         return await res.status(200).json({status: "success",data: {length: result?.length,categories: result}});
     } catch (error) {
         next(error)

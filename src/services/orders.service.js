@@ -26,7 +26,6 @@ const getOrderDetails = async(userId) => {
 }
 
 const getOrderDetailsById = async({order_id},userId) => {
-    console.log(order_id);
     const transaction = db.transaction();
     try {
         const result = await orderRepository.getOrderDetailsById(order_id,userId);

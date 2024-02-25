@@ -114,7 +114,6 @@ const getOrderDetails = async(req,res,next) => {
  */
 const getOrderDetailsById = async(req,res,next) => {
     try {
-        console.log(req.params);
         const result = await orderService.getOrderDetailsById(req.params,req.auth);
         return await res.status(200).json({status: "success",data: {length: result.length, order: result}});
     } catch (error) {

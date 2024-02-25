@@ -12,7 +12,6 @@ const validationHadler = require('../middleware/validation');
 const testRouter = () => {
     const router = express.Router();
     router.get('/',(req,res,next) => {
-        // console.log('Hello From Triveous Team');
         res.status(200).send('Hello From Triveous Team')
     });
     router.get('/verify-token',verifyToken);

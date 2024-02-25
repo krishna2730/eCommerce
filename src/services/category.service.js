@@ -8,7 +8,6 @@ const addParentCategory = async(categoryData) => {
     const {name} = categoryData;
     try {
         const result = await categoryRepository.getCategoryByName(name);
-        console.log("Data:",result);
         if(result){
             throw createHttpError(409,'The category name already exists')
         }
@@ -27,7 +26,6 @@ const addSubCategory = async(categoryData) => {
     const {name, parentName} = categoryData;
     try {
         const result = await categoryRepository.getCategoryByName(name);
-        console.log("Data:",result);
         if(result){
             throw createHttpError(409,'The category name already exists')
         }
@@ -49,7 +47,6 @@ const getAllCategories = async() => {
     try {
         const result = await categoryRepository.getAllCategories();
         const categories = result.map((data) => {return data.category_name;})
-        console.log("Data:", categories);
         return categories;
     } catch (error) {
         throw error;
@@ -62,7 +59,6 @@ const getCategoryByName = async(categoryData) => {
     try {
         const result = await categoryRepository.getCategoryByName(name);
         const categories = result.map((data) => {return data.category_name;})
-        console.log(categories);
         return categories
     } catch (error) {
         throw error;

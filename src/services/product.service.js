@@ -7,7 +7,6 @@ const createHttpError = require('http-errors');
 const getAllProducts = async() => {
     try {
         const products = await productRepository.getAllProducts();
-        console.log("Data:", products);
         return products;
     } catch (error) {
         throw error;
@@ -19,7 +18,6 @@ const getProductById = async(productData) => {
     const {id} = productData;
     try {
         const product = await productRepository.getProductById(id);
-        console.log("Data:", product);
         return product;
     } catch (error) {
         throw error;
@@ -29,10 +27,8 @@ const getProductById = async(productData) => {
 //Get Product By Id
 const getProductByName = async(productData) => {
     const {name} = productData;
-    console.log(name);
     try {
         const products = await productRepository.getProductByName(name);
-        console.log("Data:", products);
         return products;
     } catch (error) {
         throw error;
@@ -48,7 +44,6 @@ const getProductByCategoryId = async(productData) => {
             throw createHttpError(401,"The category name doesn't exist. So please select the exisiting category")
         }
         const products = await productRepository.getProductByCategoryId(category.id);
-        console.log("Data:", products);
         return products;
     } catch (error) {
         throw error;

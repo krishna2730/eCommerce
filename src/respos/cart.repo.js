@@ -17,11 +17,8 @@ const addToCart = async(cartDetail, userId) => {
         if(!cart){
             [cart] = await createCart(userId);
         }
-        console.log(cart);
         const [currentCartData] = await db.select('*').from('shopping_cart_item').where('product_id',cartDetail.product_id).andWhere('cart_id',cart.id).limit(1);
-        console.log(currentCartData);
         const productData = await productRepository.getProductById(cartDetail.product_id);
-        console.log(productData);
         if(productData){
             if(currentCartData){
                 // updateCartData = {qty: currentCartData.qty + 1, ...cartDetail}
@@ -52,12 +49,10 @@ const addToCart = async(cartDetail, userId) => {
 const removeFromCart = async(cartDetail, userId) => {
     try {
         let [cart] = await db.select('*').from('shopping_cart').where('status','in_cart').andWhere('user_id',userId).returning('*').limit(1);
-        console.log(cart);
         if(!cart){
             throw createHttpError(401,'Cart is already Empty');
         }
         const [currentCartData] = await db.select('*').from('shopping_cart_item').where('product_id',cartDetail.product_id).andWhere('cart_id',cart.id).limit(1);
-        console.log(currentCartData);
         if(currentCartData){
             if(currentCartData.qty - 1 <= 0){
                 await db('shopping_cart_item').delete().where('product_id',cartDetail.product_id).andWhere('cart_id',cart.id).returning('*');
@@ -80,7 +75,6 @@ const removeFromCart = async(cartDetail, userId) => {
 const emptyCart = async(userId) => {
     try {
         let [cart] = await db.select('*').from('shopping_cart').where('status','in_cart').andWhere('user_id',userId).returning('*').limit(1);
-        console.log(cart);
         if(!cart){
             throw createHttpError(401,'Cart is already Empty');
         }

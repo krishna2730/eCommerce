@@ -100,7 +100,6 @@ const getProductById = async(req,res,next) => {
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 const getProductByName = async(req,res,next) => {
-    console.log(req.params);
     try {
         const result = await productService.getProductByName(req.params);
         return await res.status(200).json({status: "success",data: {length: result.length, products: result}});

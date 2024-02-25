@@ -3,7 +3,6 @@
     const cartRepository = require('./cart.repo');
 
     const placeOrder = async(cart_id,userId) => {
-        console.log(cart_id,userId);
         let [cart] = await db.select('*').from('shopping_cart').where('user_id',userId).andWhere('id',cart_id).limit(1);
         if(!cart){
             throw createHttpError(401,'Carty is Empty');
@@ -16,7 +15,6 @@
         //Get order Total
         const cartData = await cartRepository.getCartItems(userId);
         const order_total = cartData.reduce((total, num) => {
-            // console.log(num.total_product_price);
             return total + num.total_product_price;
         }, 0);
 
@@ -30,8 +28,6 @@
             order_date: new Date().toISOString(),
             order_total: order_total
         }).returning('*')
-
-        console.log(result);
         return result;
     }
 
@@ -41,7 +37,6 @@
     }
 
     const getOrderDetailsById = async(orderId,userId) => {
-        console.log(orderId,userId);
         const result = await db.select('*').from('shop_order').where('user_id',userId).andWhere('id',orderId);
         return result;
     }

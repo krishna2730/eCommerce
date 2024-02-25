@@ -20,14 +20,12 @@ const createSubCategory = async(name, parentNameId) => {
 //Get All Categories
 const getAllCategories = async() => {
     const result = await db.select('category_name').from('product_category');
-    console.log(result);
     return result;
 }
 
 //get Category by name
 const getCategoryByName = async(name) => {
     const [result] = await db.column('category_name').select('*').from('product_category').whereLike('category_name',`%${name}%`).limit(1);
-    // console.log("result:", result);
     return result;
 }
 

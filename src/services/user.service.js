@@ -9,7 +9,6 @@ const createUser = async(userData) => {
     try {
         //Fetch Email
         const result = await userRepository.getByEmail(userData.email_address);
-        console.log("result: ",result);
         if(result){
             throw createHttpError(409, " This email is already registered");
         }
@@ -31,8 +30,6 @@ const createUser = async(userData) => {
 }
 
 const editUser = async(userData, userId) => {
-    // const result = await userRepository.getByEmail(userData.email_address);
-    // console.log(result);
     try {
         const user = await userRepository.edit(userData, userId);
         return user;
@@ -46,7 +43,6 @@ const login = async(data) => {
     try {
         //Find User By email
         const user = await userRepository.getByEmail(data.email_address);
-        console.log("result: ",user);
         if(!user){
             throw createHttpError(401, "'Authentication failed: User not found.");
         }

@@ -6,6 +6,10 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "swagger": "node src/api-docs/gen.js",
+    "migration:make": "knex migrate:make --cwd db",
+    "migration:local": "knex migrate:latest --cwd db",
+    "migration:up": "knex migrate:up --cwd db",
+    "migration:down": "knex migrate:down --cwd db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

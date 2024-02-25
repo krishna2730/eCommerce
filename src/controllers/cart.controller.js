@@ -150,7 +150,6 @@ const emptyCart = async(req,res,next) => {
  */
 const getCartItems = async(req,res,next) => {
     try {
-        // console.log(req.auth);
         const result = await cartService.getCartItems(req.auth);
         return await res.status(200).json({status: "success",data: {length: result?.length, cart: result}});
     } catch (error) {
