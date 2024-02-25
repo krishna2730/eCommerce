@@ -1,16 +1,6 @@
 const db = require('../clients/db');
 const cartRepository = require('../respos/cart.repo');
 
-// const createCart = async(userId) => {
-//     const transaction = db.transaction();
-//     try {
-//         (await transaction).commit();
-//     } catch (error) {
-//         (await transaction).rollback();
-//         throw error;
-//     }
-// }
-
 const addToCart = async(cartDetail, userId) => {
     const transaction = db.transaction();
     try {

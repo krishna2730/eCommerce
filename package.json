@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "swagger": "node src/clients/swagger.js",
+    "swagger": "node src/api-docs/gen.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +17,8 @@
     "debug": "^4.3.4",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",

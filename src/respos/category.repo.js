@@ -27,6 +27,7 @@ const getAllCategories = async() => {
 //get Category by name
 const getCategoryByName = async(name) => {
     const [result] = await db.column('category_name').select('*').from('product_category').whereLike('category_name',`%${name}%`).limit(1);
+    // console.log("result:", result);
     return result;
 }
 

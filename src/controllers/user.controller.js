@@ -4,29 +4,32 @@ const userService = require("../services/user.service");
  * @swagger
  * /users:
  *   post:
- *     summary: Register User
- *     description: Get me info
- *     tags:
- *       - users
+ *     summary: Create a new user
+ *     tags: [Users]
  *     requestBody:
+ *       description: User data
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *             $ref: '#/components/schemas/User'
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: User created successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/User'
+ *       '409':
+ *         description: User with the provided email already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 const createUser = async(req,res,next) => {
     try {
+        console.log(req.body);
         const result = await userService.createUser(req.body);
         return await res.status(200).json({status: "success",data: result});
     } catch (error) {
@@ -38,27 +41,32 @@ const createUser = async(req,res,next) => {
  * @swagger
  * /users:
  *   put:
- *     summary: Edit User info
- *     description: Get me info
- *     tags:
- *       - users
+ *     summary: Edit user information
+ *     tags: [Users]
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
+ *       description: User data to be updated
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *             $ref: '#/components/schemas/EditUser'
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: User information updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/User'
+ *       '401':
+ *         description: Unauthorized - Token missing or invalid
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
+
 const editUser = async(req,res,next) => {
     try {
         const result = await userService.editUser(req.body,req.auth);
@@ -72,26 +80,28 @@ const editUser = async(req,res,next) => {
  * @swagger
  * /users/login:
  *   post:
- *     summary: Login User
- *     description: Log user into the system
- *     tags:
- *       - users
+ *     summary: User login
+ *     tags: [Users]
  *     requestBody:
+ *       description: User login credentials
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *             $ref: '#/components/schemas/Login'
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: User logged in successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/TokenResponse'
+ *       '401':
+ *         description: Authentication failed - User not found or incorrect password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 const login = async(req,res,next) => {
     try {

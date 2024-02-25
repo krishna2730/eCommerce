@@ -3,7 +3,7 @@ const createHttpError = require('http-errors');
 
 const verifyToken = (req, res, next) => {
   var token = req.headers['authorization'];
-
+  console.log("token is coming",token);
   try {
     if (!token) {
       throw createHttpError(401,"A token is required for authentication");

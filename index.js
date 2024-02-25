@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./src/clients/swagger_output.json');
+const swaggerDocument = require('./src/api-docs/swagger.json');
 
 require('dotenv').config()
 
@@ -18,7 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 useAPI(app, "/api/v1/triveous");
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(
+    "/api-docs",
+    swaggerUi.serveWithOptions({ redirect: false }),
+    swaggerUi.setup(swaggerDocument)
+  );
 
 // app.use(function(error, req, res, next) {
     //   console.log('Error: ',error);

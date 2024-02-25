@@ -60,7 +60,8 @@ const getAllCategories = async() => {
 const getCategoryByName = async(categoryData) => {
     const {name} = categoryData;
     try {
-        const categories = await categoryRepository.getCategoryByName(name);
+        const result = await categoryRepository.getCategoryByName(name);
+        const categories = result.map((data) => {return data.category_name;})
         console.log(categories);
         return categories
     } catch (error) {

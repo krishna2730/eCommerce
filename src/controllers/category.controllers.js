@@ -1,30 +1,45 @@
 const db = require('../clients/db');
 const categoryService = require('../services/category.service');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Category
+ *   description: Category management
+ */
+
 //Add Parent Category
 /**
  * @swagger
- * /:
+ * /category:
  *   post:
- *     summary: Add Category
- *     tags:
- *       - category
- *      requestBody:
+ *     summary: Add a parent category
+ *     tags: [Category]
+ *     requestBody:
+ *       description: Category details
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *             required:
+ *               - name
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: Parent category added successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/CategoryDetail'
+ *       '409':
+ *         description: ConflictError - Category name already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 const addParentCategory = async(req,res,next) => {
     try {
@@ -36,30 +51,32 @@ const addParentCategory = async(req,res,next) => {
 }
 
 //Add Sub Category
-//Add Parent Category
 /**
  * @swagger
- * /sub-category:
+ * /category/sub-category:
  *   post:
- *     summary: Add Sub Category Category
- *     tags:
- *       - category
- *      requestBody:
+ *     summary: Add a sub-category
+ *     tags: [Category]
+ *     requestBody:
+ *       description: Sub-category details
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *             $ref: '#/components/schemas/Category'
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: Sub-category added successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/CategoryDetail'
+ *       '409':
+ *         description: ConflictError - Category name already exists or Parent category not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 const addSubCategory = async(req,res,next) => {
     try {
@@ -73,27 +90,17 @@ const addSubCategory = async(req,res,next) => {
 //Get All Categories
 /**
  * @swagger
- * /:
+ * /category:
  *   get:
- *     summary: Get All categories
- *     tags:
- *       - category
- *      requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/SignupCallbackDto'
+ *     summary: Get all categories
+ *     tags: [Category]
  *     responses:
- *       200:
- *         description: status
+ *       '200':
+ *         description: Categories retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
+ *               $ref: '#/components/schemas/CategoryDetail'
  */
 const getAllCategories = async(req,res,next) => {
     try {
@@ -105,33 +112,6 @@ const getAllCategories = async(req,res,next) => {
     }
 }
 
-
-//get Category by name
-/**
- * @swagger
- * /sub-category:
- *   post:
- *     summary: Get Category by name
- *     tags:
- *       - category
- *     parameters:
- *       - name: name
- *         in: path
- *         description: Category search name
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: status
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                  data:
- *                    $ref: '#/components/schemas/UserDto'
- */
 const getCategoryByName = async(req,res,next) => {
     try {
         const result = await categoryService.getCategoryByName(req.params);

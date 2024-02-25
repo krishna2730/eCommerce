@@ -1,0 +1,1052 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Triveous API Swagger",
+    "version": "0.1.0",
+    "description": "Triveous API",
+    "license": {
+      "name": "MIT",
+      "url": "https://spdx.org/licenses/MIT.html"
+    },
+    "contact": {
+      "name": "Krishna",
+      "email": "krishnaviramgama2002@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1/triveous",
+      "description": "local"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Bearer token to access these api endpoints",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "CartReq": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "product_id"
+        ]
+      },
+      "CartItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "cart_id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "total_product_price": {
+            "type": "number"
+          }
+        }
+      },
+      "CartItemDetail": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "integer"
+          },
+          "cart": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartItem"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "parentName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CategoryDetail": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "integer"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string  // Assuming the ID is a string, as per the provided example"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "cart_id": {
+            "type": "string"
+          },
+          "order_date": {
+            "type": "string  // Assuming the order_date is in string format"
+          },
+          "order_total": {
+            "type": "number"
+          },
+          "order_status": {
+            "type": "string | null  // Assuming order_status can be a string or null"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "cart_id",
+          "order_date",
+          "order_total"
+        ]
+      },
+      "OrderList": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "integer"
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Order"
+            }
+          }
+        }
+      },
+      "ProductReq": {
+        "type": "object",
+        "properties": {
+          "categoryName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "product_image": {
+            "type": "string | null"
+          }
+        },
+        "required": [
+          "category_name",
+          "name",
+          "description",
+          "price"
+        ]
+      },
+      "ProductRes": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "qty_in_stock": {
+            "type": "integer"
+          },
+          "price": {
+            "type": "number"
+          },
+          "product_image": {
+            "type": "string | null  // Assuming product_image can be a URL or null"
+          }
+        },
+        "required": [
+          "category_id",
+          "name",
+          "description",
+          "qty_in_stock",
+          "price"
+        ]
+      },
+      "ProductList": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "integer"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductRes"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email_address": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email_address",
+          "password",
+          "phone_number"
+        ]
+      },
+      "EditUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email_address": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email_address",
+          "password"
+        ]
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/cart": {
+      "post": {
+        "summary": "Add a product to the cart",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Cart item details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product added to the cart successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartItemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - Product already in the cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Remove a product from the cart",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Cart item details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product removed from the cart successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartItemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound - Product not in the cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Empty the cart",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cart emptied successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get cart items for the authenticated user",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cart items retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartItemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "summary": "Add a parent category",
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "description": "Category details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Parent category added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ConflictError - Category name already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all categories",
+        "tags": [
+          "Category"
+        ],
+        "responses": {
+          "200": {
+            "description": "Categories retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/sub-category": {
+      "post": {
+        "summary": "Add a sub-category",
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "description": "Sub-category details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sub-category added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ConflictError - Category name already exists or Parent category not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{cart_id}": {
+      "post": {
+        "summary": "Place a new order using the specified cart ID",
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cart_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Cart ID"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order placed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - Order for the specified cart already placed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "Get all orders for the authenticated user",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{order_id}": {
+      "get": {
+        "summary": "Get details of a specific order by order ID",
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Order ID"
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the specified order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Get all products",
+        "tags": [
+          "Products"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new product",
+        "tags": [
+          "Products"
+        ],
+        "requestBody": {
+          "description": "Product data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid category name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Get a product by ID",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Edit a product by ID",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Updated product data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product edited successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductRes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/category/{name}": {
+      "get": {
+        "summary": "Get products by category name",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Category name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of products in the specified category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid category name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Create a new user",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "User data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User with the provided email already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Edit user information",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "User data to be updated",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User information updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Token missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "User login",
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "description": "User login credentials",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed - User not found or incorrect password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Cart",
+      "description": "Cart management"
+    },
+    {
+      "name": "Category",
+      "description": "Category management"
+    },
+    {
+      "name": "Orders",
+      "description": "Order management"
+    },
+    {
+      "name": "Products",
+      "description": "Product management"
+    }
+  ]
+}

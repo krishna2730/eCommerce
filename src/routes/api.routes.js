@@ -5,6 +5,9 @@ const categoryController = require('../controllers/category.controllers');
 const productController = require('../controllers/product.controller');
 const cartController = require('../controllers/cart.controller');
 const orderController = require('../controllers/orders.controller');
+const {validationResult } = require('express-validator');
+const validationHadler = require('../middleware/validation');
+
 
 const testRouter = () => {
     const router = express.Router();
@@ -18,10 +21,10 @@ const testRouter = () => {
 
 const userRouter = () => {
     const router = express.Router();
-    router.post('/',userController.createUser);
+    router.post('/',validationHadler.createUserValidation,validationHadler.validateInput,userController.createUser);
     //Authentication Required
-    router.put('/',verifyToken,userController.editUser);
-    router.post('/login',userController.login);
+    router.put('/',verifyToken,validationHadler.editUserValidation,validationHadler.validateInput,userController.editUser);
+    router.post('/login',validationHadler.loginUserValidation,validationHadler.validateInput,userController.login);
     return router;
 }
 
@@ -29,19 +32,17 @@ const categoryRouter = () => {
     const router = express.Router();
     router.get('/',categoryController.getAllCategories);
     router.get('/:name',categoryController.getCategoryByName);
-    router.post('/',categoryController.addParentCategory);
-    router.post('/sub-category',categoryController.addSubCategory);
+    router.post('/',validationHadler.addParentCategoryValidation,validationHadler.validateInput,categoryController.addParentCategory);
+    router.post('/sub-category',validationHadler.addSubCategoryValidation,validationHadler.validateInput,categoryController.addSubCategory);
     return router;
 }
 
 const productRouter = () => {
     const router = express.Router();
     router.get('/',productController.getAllProducts);
-    // router.get('/:name',productController.getProductByName);
     router.get('/:id',productController.getProductById);
-    router.get('/category/:name',productController.getProductByCategoryName);
-    router.post('/',productController.addProduct);
-    router.put('/:id',productController.editProduct);
+    router.post('/',validationHadler.addProductValidation,validationHadler.validateInput,productController.addProduct);
+    router.put('/:id',validationHadler.editProductValidation,validationHadler.validateInput,productController.editProduct);
     return router;
 }
 
@@ -50,15 +51,14 @@ const cartRouter = () => {
     router.get('/',cartController.getCartItems);
     router.post('/',cartController.addToCart);
     router.put('/',cartController.removeFromCart);
-    router.delete('/',cartController.emptyCart);
-    
+    router.delete('/',cartController.emptyCart);    
     return router;
 }
 
 const orderRouter = () => {
     const router = express.Router();
     router.get('/',orderController.getOrderDetails);
-    router.get('/:cart_id',orderController.getOrderDetailsById);
+    router.get('/:order_id',orderController.getOrderDetailsById);
     router.post('/:cart_id',orderController.placeOrder);
     return router;
 }
