@@ -42,8 +42,7 @@ Before you begin, ensure you have the following installed:
     DB_PASS="root"
 3. Run migrations to create database tables:
     ```bash
-    npm run knex migrate:latest
-    npm run knex migrate:up
+    npm run migration:up
 ## API Endpoints <a name="api-endpoints"></a>
 > Swagger Url: [http://localhost:3000/api-docs/](http://localhost:3000/api-docs) \
 > Base API Url: [http://localhost:3000/api/v1/triveous/](http://localhost:3000/api/v1/triveous)
@@ -70,15 +69,15 @@ Before you begin, ensure you have the following installed:
 ##### Orders
 `POST` /orders/{cart_id} - **Place a new order using the specified cart ID** \
 `GET` /orders - **Get all orders for the authenticated user** \
-`GET` /orders/{order_id} - **Get details of a specific order by order ID*
+`GET` /orders/{order_id} - **Get details of a specific order by order ID**
 
 
 
 ## Tags <a name="tags"></a>
-- Cart: Cart management
-- Category: Category management
-- Orders: Order management
-- Products: Product management
+- **Cart:** Cart management
+- **Category:** Category management
+- **Orders:** Order management
+- **Products:** Product management
  
 ## Contact <a name="contact"></a>
 For any inquiries, contact:
