@@ -1,9 +1,5 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const fs = require('fs');
-const path = require('path');
-
-const outputDir = "E:\\eCommerce\\src\\api-docs";
-const outputFile = path.join(outputDir, "swagger.json");
 
 const options = {
   definition: {
@@ -46,4 +42,4 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-fs.writeFileSync(outputFile, JSON.stringify(specs, null, 2));
+fs.writeFileSync("src/api-docs/swagger.json", JSON.stringify(specs, null, 2));
